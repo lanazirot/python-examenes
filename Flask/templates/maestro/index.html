@@ -1,0 +1,25 @@
+{% extends './base.html' %}
+{% block content %}
+    <h1 class="display-1 d-flex justify-content-center">Maestros <a style="margin-left: 1rem;" href="{{ url_for('agregarMaestro') }}"><i class="bi bi-plus-circle-fill" style="font-size: 0.6em ;"></i></a></h1>
+    <br>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for maestro in maestros %}
+            <tr>
+                <th scope="row">{{maestro.id}}</th>
+                <td>{{maestro.nombre}}</td>
+                <td><a href="maestros/{{maestro.id}}/editar">Editar</a></td>
+                <td><a href="maestros/{{maestro.id}}/eliminar">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

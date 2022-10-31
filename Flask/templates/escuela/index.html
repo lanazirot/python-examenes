@@ -1,0 +1,27 @@
+{% extends './base.html' %}
+{% block content %}
+    <h1 class="display-1 d-flex justify-content-center">Escuelas <a style="margin-left: 1rem;" href="{{ url_for('agregarEscuela') }}"><i class="bi bi-plus-circle-fill" style="font-size: 0.6em ;"></i></a></h1>
+    <br>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for escuela in escuelas %}
+            <tr>
+                <th scope="row">{{escuela.id}}</th>
+                <td>{{escuela.nombre}}</td>
+                <td>{{escuela.direccion}}</td>
+                <td><a href="escuelas/{{escuela.id}}/editar">Editar</a></td>
+                <td><a href="escuelas/{{escuela.id}}/eliminar">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

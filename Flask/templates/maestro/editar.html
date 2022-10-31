@@ -1,0 +1,11 @@
+{% extends './base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block content %}
+<h1 class="display-1 d-flex justify-content-center">Editar maestro  <a style="margin-left: 1rem;" href="javascript:history.back()"><i class="bi bi-arrow-left-circle-fill" style="font-size: 0.6em ;"></i></a></h1>
+
+    <form method="post">
+        {{ forma.csrf_token }}
+        {{ render_form(forma, button_style='success', button_size='block') }}
+    </form>
+
+{% endblock %}

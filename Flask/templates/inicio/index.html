@@ -1,0 +1,14 @@
+{% extends './base.html' %}
+{% block content %}
+    <h1 class="display-1 d-flex justify-content-center">Examen U1</h1>
+
+    <h2>Rutas JSON</h2>
+    
+    <ul>
+        <li>/listaMaestros - devuelve una lista de los maestros en formato JSON</li>
+        <li>/listaEscuelas - devuelve una lista de las escuelas en formato JSON</li>
+        <li>/escuelas/findById/:id - devuelve la informacion de una escuela en formato JSON si es encontrada, en caso de que no, devuelve un error en formato JSON</li>
+    </ul>
+
+    <br>
+{% endblock %}
