@@ -24,6 +24,7 @@ FULL_URL_DB = f'postgresql://{USER_DB}:{PASS_DB}@{URL_DB}/{NAME_DB}'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = FULL_URL_DB
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['WTF_CSRF_ENABLED'] = False
 
 
 app.config['BOOTSTRAP_BTN_STYLE'] = 'primary'
@@ -47,17 +48,6 @@ def appErrorHandler(error):
     return render_template('/default/error.html', error=error), 404
 
 
-@app.before_request
-def middleware():
-    login_url = url_for('login')
-    
-    d = [url_for('eventos'), url_for('alumnos'), url_for('materias')]
-    
-    if request.path == login_url:
-        return
-    elif not session.get('logged_in', False) and request.path not in d :
-        return redirect(login_url)
-
 @app.route('/logout')
 def logout():
     if session:
@@ -80,6 +70,8 @@ def login():
 
 @app.route("/inicio")
 def inicio():
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     return render_template('/inicio/index.html')
 
 
@@ -97,6 +89,8 @@ def escuelas():
 
 @app.route("/escuelas/agregar", methods=['GET', 'POST'])
 def agregarEscuela():
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     escuela = Escuela()
     escuelaForm = EscuelaForm(obj=escuela)
     if request.method == 'POST':
@@ -110,6 +104,8 @@ def agregarEscuela():
 
 @app.route("/escuelas/<int:id>/editar", methods=['GET', 'POST'])
 def editarEscuela(id):
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     escuela = Escuela.query.get_or_404(id)
     escuelaForm = EscuelaForm(obj=escuela)
     if request.method == 'POST':
@@ -122,6 +118,8 @@ def editarEscuela(id):
 
 @app.route("/escuelas/<int:id>/eliminar")
 def eliminarEscuela(id):
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     escuela = Escuela.query.get_or_404(id)
     db.session.delete(escuela)
     db.session.commit()
@@ -141,6 +139,8 @@ def maestros():
 
 @app.route("/maestro/agregar", methods=['GET', 'POST'])
 def agregarMaestro():
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     maestro = Maestro()
     maestroForm = MaestroForm(obj=maestro)
     if request.method == 'POST':
@@ -154,6 +154,8 @@ def agregarMaestro():
 
 @app.route("/maestros/<int:id>/editar", methods=['GET', 'POST'])
 def editarMaestro(id):
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     maestro = Maestro.query.get_or_404(id)
     maestroForm = MaestroForm(obj=maestro)
     if request.method == 'POST':
@@ -166,6 +168,8 @@ def editarMaestro(id):
 
 @app.route("/maestros/<int:id>/eliminar")
 def eliminarMaestro(id):
+    if not session.get('logged_in', False):
+        return redirect(url_for('login'))
     maestro = Maestro.query.get_or_404(id)
     db.session.delete(maestro)
     db.session.commit()
@@ -178,17 +182,74 @@ def eliminarMaestro(id):
 
 
 
+
+## 3 ENTIDADES QUE NO SON POR CRUD CON FLASK WTF ##
+
+
 ## RUTAS ALUMNO ##
 @app.route('/alumnos')
 def alumnos():
-    return render_template('/alumno/index.html')
+    alumnos = Alumno.query.all()
+    return render_template('/alumno/index.html', alumnos = alumnos)
+
+@app.route("/alumnos/agregar", methods=['POST'])
+def agregarAlumno():
+    if request.method == 'POST':
+        data = request.json
+        # Obteniendo los datos de la peticion HTTP
+        alumno = Alumno(nombre=data['nombre'])
+        db.session.add(alumno)
+        db.session.commit()    
+        return jsonify({'message': 'Agregado', 'data': None})
+    else:
+        return jsonify({'message': 'Solo peticiones POST permitidas', 'data': None})
+
+
+@app.route("/alumnos/eliminar")
+def eliminarAlumno():
+    try:
+        id = request.headers['id_alumno']
+        alumno = Alumno.query.get_or_404(id)
+        db.session.delete(alumno)
+        db.session.commit()
+    except:
+        return jsonify({'message': 'Se esperaba un ID en el header'})
+    return jsonify({'message': 'Alumno eliminado exitosamente', 'data': id})
+
+
 ## FIN ALUMNO ##
 
 
 ## RUTAS MATERIA ##
 @app.route('/materias')
 def materias():
-    return render_template('/materia/index.html')
+    materias = Materia.query.all()
+    return render_template('/materia/index.html', materias = materias)
+
+
+@app.route("/materias/agregar", methods=['POST'])
+def agregarMateria():
+    if request.method == 'POST':
+        data = request.json
+        # Obteniendo los datos de la peticion HTTP
+        materia = Materia(titulo=data['titulo'])
+        db.session.add(materia)
+        db.session.commit()    
+        return jsonify({'message': 'Agregado', 'data': None})
+    else:
+        return jsonify({'message': 'Solo peticiones POST permitidas', 'data': None})
+
+
+@app.route("/materias/eliminar", methods=['POST'])
+def eliminarMateria():
+    try:
+        id = request.headers['id_materia']
+        materia = Materia.query.get_or_404(id)
+        db.session.delete(materia)
+        db.session.commit()
+    except:
+        return jsonify({'message': 'Se esperaba un ID en el header'})
+    return jsonify({'message': 'Materia eliminado exitosamente', 'data': id})
 ## FIN MATERIA ##
 
 
@@ -196,6 +257,30 @@ def materias():
 @app.route('/eventos')
 def eventos():
     return render_template('/evento/index.html')
+
+@app.route("/eventos/agregar", methods=['POST'])
+def agregarEvento():
+    if request.method == 'POST':
+        data = request.json
+        # Obteniendo los datos de la peticion HTTP
+        evento = Evento(descripcion=data['descripcion'])
+        db.session.add(evento)
+        db.session.commit()    
+        return jsonify({'message': 'Agregado', 'data': None})
+    else:
+        return jsonify({'message': 'Solo peticiones POST permitidas', 'data': None})
+
+@app.route("/eventos/eliminar", methods=['POST'])
+def eliminarMateria():
+    try:
+        id = request.headers['id_evento']
+        evento = Evento.query.get_or_404(id)
+        db.session.delete(evento)
+        db.session.commit()
+    except:
+        return jsonify({'message': 'Se esperaba un ID en el header'})
+    return jsonify({'message': 'Evento eliminado exitosamente', 'data': id})
+
 ## FIN EVENTO ##
 
 
