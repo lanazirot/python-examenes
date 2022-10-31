@@ -5,9 +5,21 @@
     <h2>Rutas JSON</h2>
     
     <ul>
-        <li>/listaMaestros - devuelve una lista de los maestros en formato JSON</li>
-        <li>/listaEscuelas - devuelve una lista de las escuelas en formato JSON</li>
-        <li>/escuelas/findById/:id - devuelve la informacion de una escuela en formato JSON si es encontrada, en caso de que no, devuelve un error en formato JSON</li>
+        <li>/listaAlumnos - devuelve una lista de los alumnos en formato JSON</li>
+        <li>/listaMaterias- devuelve una lista de las materias en formato JSON</li>
+        <li>/listaEventos- devuelve una lista de los eventos formato JSON</li>
+
+        <li>/alumnos/agregar- agrega un alumno por peticion POST</li>
+        <li>/alumnos/eliminar- elimina un alumno por medio del ID en el header (id_alumno)</li>
+        
+        <li>/materias/agregar- agrega una materia por peticion POST</li>
+        <li>/materias/eliminar- elimina una materia por medio del ID en el header (id_materia)</li>
+        
+        <li>/eventos/agregar- agrega un evento por peticion POST</li>
+        <li>/eventos/eliminar- elimina un evento por medio del ID en el header (id_materia)</li>
+        
+    
+        <li>/evento/findById/:id - devuelve la informacion de un evento en formato JSON si es encontrada, en caso de que no, devuelve un error en formato JSON</li>
     </ul>
 
     <br>

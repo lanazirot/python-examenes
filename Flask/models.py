@@ -23,17 +23,31 @@ class Maestro(db.Model):
     nombre = db.Column(db.String(50))
     pass
 
+@dataclass
 class Alumno(db.Model):
+    
+    id: int
+    nombre: str
+    
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50))
     pass
-
+@dataclass
 class Materia(db.Model):
+    
+    id: int
+    titulo: str
+    
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(50))
     pass
 
+@dataclass
 class Evento(db.Model):
+    
+    id: int
+    descripcion: str
+    
     id = db.Column(db.Integer, primary_key=True)
     descripcion = db.Column(db.String(50))
     pass

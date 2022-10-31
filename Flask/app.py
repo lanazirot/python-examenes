@@ -205,7 +205,7 @@ def agregarAlumno():
         return jsonify({'message': 'Solo peticiones POST permitidas', 'data': None})
 
 
-@app.route("/alumnos/eliminar")
+@app.route("/alumnos/eliminar", methods=['POST'])
 def eliminarAlumno():
     try:
         id = request.headers['id_alumno']
@@ -256,7 +256,8 @@ def eliminarMateria():
 ## RUTAS EVENTO ##
 @app.route('/eventos')
 def eventos():
-    return render_template('/evento/index.html')
+    eventos = Evento.query.all()
+    return render_template('/evento/index.html', eventos=eventos)
 
 @app.route("/eventos/agregar", methods=['POST'])
 def agregarEvento():
@@ -271,7 +272,7 @@ def agregarEvento():
         return jsonify({'message': 'Solo peticiones POST permitidas', 'data': None})
 
 @app.route("/eventos/eliminar", methods=['POST'])
-def eliminarMateria():
+def eliminarEvento():
     try:
         id = request.headers['id_evento']
         evento = Evento.query.get_or_404(id)
@@ -289,23 +290,28 @@ def eliminarMateria():
 
 ## RUTAS ESPECIALES PUNTO 7 EXAMEN ##
 
-@app.route('/listaMaestros')
-def getMaestros():
-    maestros = Maestro.query.all()
-    return jsonify(maestros) 
+@app.route('/listaAlumnos')
+def getAlumnos():
+    alumnos = Alumno.query.all()
+    return jsonify(alumnos) 
 
-@app.route('/listaEscuelas')
-def getEscuelas():
-    escuelas = Escuela.query.all()
-    return jsonify(escuelas) 
+@app.route('/listaEventos')
+def getEventos():
+    eventos = Evento.query.all()
+    return jsonify(eventos) 
 
-@app.route('/escuelas/findById/<int:id>')
-def getEscuelaByID(id):
-    escuela = Escuela.query.filter_by(id=id).first()
-    if not escuela:
-        return jsonify({'message': 'Escuela no encontrada', 'data': None})
+@app.route('/listaMaterias')
+def getMaterias():
+    materias = Materia.query.all()
+    return jsonify(materias) 
+
+@app.route('/evento/findById/<int:id>')
+def getEventoById(id):
+    evento = Evento.query.filter_by(id=id).first()
+    if not evento:
+        return jsonify({'message': 'Evento no encontrada', 'data': None})
     else:
-        return jsonify({'message': 'Escuela encontrada exitosamente', 'data': escuela})
+        return jsonify({'message': 'Evento encontrada exitosamente', 'data': evento})
 
 ####################################
 
