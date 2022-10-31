@@ -1,0 +1,9 @@
+Entidades principales
+
+Vuelo - De ciudad a ciudad (idVuelo, nombre, descripcion, ciudadOrigen, ciudadDestino, fecha)
+Reservacion - Vuelo - Pasajero (idReservacion, idVuelo, idPasajero, aciento)
+Usuario - Administracion de usuarios (idUsuario, nombre, puesto, correoElectronico)
+
+Entidades secundarias
+Ciudad - Simple ciudad (idCiudad, nombre)
+Pasajero - Simple usuario (idPasajero, nombre, direccion, telefono)

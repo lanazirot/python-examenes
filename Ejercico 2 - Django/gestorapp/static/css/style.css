@@ -1,0 +1,73 @@
+body {
+    background: #00BFA6;
+}
+
+.formContainer {
+    display: flex;
+    height: 700px;
+    border-radius: 500px;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-bottom: 100px;
+}
+
+.formLeft {
+    background: rgb(240, 241, 243);
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formRight {
+    width: 40%;
+}
+
+.formio {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    background: rgb(215, 238, 222);
+}
+
+td {
+     padding-top: 10px;
+}
+
+.btnMio {
+    background: rgb(29, 9, 85);
+    color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-decoration: none;
+}
+
+.btnMio:hover {
+    cursor: pointer;
+    background:  rgb(79, 60, 131);
+}
+
+.contenido {
+    background: rgb(240, 241, 243);
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tablaMio {
+    width: 95%;
+    text-align: center;
+}
+
+td {
+    padding: 16px !important;
+}

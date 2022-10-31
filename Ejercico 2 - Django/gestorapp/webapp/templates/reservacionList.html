@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Lista de reservaciones</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+</head>
+<body>
+    <br/>
+    <a class="btnMio" href="{% url 'index' %}">Regresar</a>
+    
+    <div class="contenido">
+        <h1>Sistema gestor de reservaciones</h1>
+
+        <a href="nuevo_reservacion" class="btnMio">Crear reservacion</a>
+        <table class="tablaMio">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Pasajero</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservacion in reservaciones %}
+                <tr>
+                    <td>{{reservacion.id}}</td>
+                    <td>{{reservacion.pasajero}}</td>
+                    <td><a href="detalle_reservacion/{{reservacion.id}}" class="btnMio" style="background: rgb(59, 59, 196);">Ver..</a></td>
+                    <td><a href="editar_reservacion/{{reservacion.id}}" class="btnMio" style="background: rgb(88, 204, 88);">Editar..</a></td>
+                    <td><a href="eliminar_reservacion/{{reservacion.id}}" class="btnMio" style="background: rgb(199, 77, 77);">Eliminar..</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table><br/>
+    </div>
+</body>
+</html></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Examen - Ejercicio 2 - Django</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+</head>
+<body>
+    <div class="contenido">
+        <h1>Panel de administrador</h1>
+        <table class="tablaMio">
+            <thead>
+                <tr>
+                    <th>Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="lista_usuarios" class="btnMio">Administracion de usuarios</a></td>
+                </tr>
+                <tr>
+                    <td><a href="lista_vuelos" class="btnMio">Administracion de vuelos</a></td>
+                </tr>
+                <tr>
+                    <td><a href="lista_reservaciones" class="btnMio">Lista de reservaciones</a></td>
+                </tr>
+            </tbody>
+        </table><br/>   
+    </div>
+</body>
+</html>

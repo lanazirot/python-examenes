@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Detalle reservacion</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+</head>
+<body>
+    <br/><a href="{% url 'reservacionList' %}" class="btnMio">Regresar</a>
+    <div class="contenido" style="text-align: center;">
+        <h1>Detalle de {{reservacion.id}}</h1>
+    
+        <h2>
+            Id: {{reservacion.id}}
+        </h2>
+        <h2>
+            Vuelo: {{reservacion.vuelo}}
+        </h2>
+        <h2>
+            Pasajero: {{reservacion.pasajero}}
+        </h2>
+        <h2>
+            Aciento: {{reservacion.aciento}}
+        </h2>
+    </div>
+</body>
+</html>
